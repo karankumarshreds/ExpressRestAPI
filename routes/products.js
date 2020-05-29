@@ -8,8 +8,14 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+    //name, price are expected by this endpoint
+    const product = {
+        name: req.body.name,
+        price: req.body.price,
+    }
     res.status(201).json({
-        message: "PRODUCTS_POST"
+        message: "PRODUCTS_POST",
+        createdProduct: product
     });
 });
 

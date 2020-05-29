@@ -16,8 +16,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+    const order = {
+        productID: req.body.id,
+        quantity: req.body.quantity,
+    }
     res.status(201).json({
-        orders: "Thanks for posting order"
+        orders: "Thanks for posting order",
+        order: order,
     });
 });
 
