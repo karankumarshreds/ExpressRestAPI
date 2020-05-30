@@ -1,9 +1,15 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
+const port = process.env.PORT || 3000;
 
-const productRoutes = require('./routes/products')
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://mongodb:@cluster0-onlv8.mongodb.net/test?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+
+const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
 
 /********************************************************
@@ -18,15 +24,16 @@ app.use(bodyParser.json());
  */
 app.use((req, res, next) => {
     //you can also specify a specific host with IP
+    //this is for the client checked by browser
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', '*')
-    //this is for the browser
+    res.header('Access-Control-Allow-Headers', '*');
+    //this is for the browser itself
     if (req.method === "OPTIONS") {
         res.header('Access-Control-Allow-Methods', 'POST, DELETE, PATCH, GET');
         return res.status(200).json({});
     }
+    next();
 });
-
 
 /********************************************************
  *  Middleware to route requests to individual endpoints
