@@ -4,13 +4,14 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://mongodb:@cluster0-onlv8.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://mongodb:mongodb_user@cluster0-onlv8.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
 
 const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
+const userRoutes = require('./routes/users');
 
 /********************************************************
  *  To parse encoded url encoded and jason related data 
@@ -46,6 +47,7 @@ app.use('/uploads', express.static('uploads'));
  */
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/users', userRoutes);
 
 /********************************************************
  *  Requests unhandled by the middleware will give error
