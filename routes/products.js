@@ -10,6 +10,9 @@ const mongoose = require('mongoose');
  */
 const multer = require('multer');
 
+//adding custom middleware authenticator
+const checkAuth = require('./middleware/checkAuth');
+
 /***********************************************
  * IMPORTANT: BUT preffered approach. Allows you
  * to configure how the multer middleware will
@@ -78,7 +81,7 @@ router.get('/', (req, res) => {
  * which means, req.body.name etc will be fetched using the multer
  * middleware. So it can do both the things. Uses formData to send
  */
-router.post('/', upload.single('productImg'), (req, res) => {
+router.post('/', checkAuth, upload.single('productImg'), (req, res) => {
 
     //saving to the instance of product model
     const product = new Product({
@@ -99,8 +102,9 @@ router.post('/', upload.single('productImg'), (req, res) => {
             error: err
         })
     });
-
 });
+
+
 
 router.get('/:id', (req, res) => {
 
