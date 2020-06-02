@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://mongodb:mongodb_user@cluster0-onlv8.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://mongodb:<password>@cluster0-onlv8.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
